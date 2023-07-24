@@ -1,0 +1,10 @@
+{
+    "html": {
+        "snippets": {
+            "testing": "div{Hello}",
+            "!!": "{<!DOCTYPE html>}>html[xmlns=${http://www.w3.org/1999/xhtml} lang=${lang} manifest=${cache.appcache}]>(head>meta[charset=${charset}]+meta[name=viewport content='width=device-width, initial-scale=:1.0']+title{Document}+link)+body{${1:}}>script:src",
+            "??": "h1",
+            "cu": "a"
+        }
+    }
+}

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" manifest="cache.appcache">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=:1.0">
+    <title>Backend</title>
+    <link rel="stylesheet" href="">
+</head>
+<body>
+
+    <!-- action is where the server post method sends input to? -->
+    <form action="/calculator" method="post">
+        <h1>Calculator</h1>
+        <input type="text" name="num1" placeholder="1st number">
+        <input type="text" name="num2" placeholder="2nd number">
+        <input type="button" name="but1" placeholder="2nd number">
+        <input type="checkbox" name="check" placeholder="2nd number">
+        <!-- submit button triggers the post method of the form -->
+        <button type="submit">Calculate</button>
+    </form>
+
+    <form action="/weather" method="post">
+        <h1>Weather</h1>
+        <label for="cityInput">City Name: </label>
+        <input id="cityInput" type="text" name="cityname">
+        <button type="submit">Go</button>
+    </form>
+
+    <form action="/mailinglist" method="post">
+        <h1>Mailing List</h1>
+        <label for="namefst">First Name: </label>
+        <input id="namefst" type="text" name="fname">
+        <label for="namelst">Last Name: </label>
+        <input id="namelst" type="text" name="lname">
+        <label for="mail">Email: </label>
+        <input id="mail" type="text" name="email">
+        <button type="submit">Go</button>
+    </form>
+
+    <img src="logo512.png"/>
+
+    <script src=""></script>
+</body>
+</html>

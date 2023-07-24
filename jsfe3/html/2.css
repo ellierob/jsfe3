@@ -1,0 +1,45 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    /* width-height includes padding */
+} 
+
+p {
+    color: green;
+}
+
+body {
+    font-family: Arial;
+}
+
+body {
+    font-size: 20px;
+}
+
+#id1 {
+    border-color: yellow;
+}
+
+form {
+    border: 5px dotted #444
+      /* thickness style color*/
+}
+
+body {
+    padding: 4px;
+}
+
+h1 {
+    margin-top: 10px;
+}
+
+input, button {
+    padding: 2px;
+    font-size: 15px;
+}
+
+/* child-selector selects child element inside specified parent */
+p a {
+    color: orange;
+}

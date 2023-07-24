@@ -1,0 +1,39 @@
+@import url(
+    'https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap'
+    );
+
+/* applies to everything */
+* {
+    /* keeps the width as before adding border, padding etc. */
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+
+}
+
+.thr {
+    /*centers elements inside element*/
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    
+    /* aligns items vertically */
+    align-items: center;
+    
+    /* alignts items horizontally */
+    justify-content: left;
+    
+}
+
+.cont {
+    flex-basis: 33.333333%;
+
+    /* aligns items vertically */
+    align-items: center;
+    
+    /* alignts items horizontally */
+    justify-content: center;
+}

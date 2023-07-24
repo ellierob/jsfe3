@@ -1,0 +1,45 @@
+div {
+    display: grid;
+    grid-auto-flow: row;
+    grid-template-columns: 1fr 1fr 1fr;
+
+    //columns: 3 250px;
+    //column-rule: 1px dotted #ccc;
+    //column-gap: 1.5em;
+
+    p {
+        margin-top: 0;
+        top: 0;
+        bottom: 0;
+        grid-auto-rows: minmax(min-content, max-content);
+    }
+
+
+    .cent {
+        font-size: 2rem;
+        grid-column: 2;
+        grid-row: 2;
+    }
+    $maxcol: 3;
+    @for $i from 1 through $maxcol {
+        :nth-child(#{$maxcol}n+#{$i}) {
+            grid-column: $i*2-4;
+        }
+    }
+    .cent {
+        font-size: 2rem;
+        grid-column: 2;
+        grid-row: 2;
+    }
+}
+
+
+
+
+
+@media (max-width: 750px) {
+    .cent  {
+        column-span: all;
+    }
+}
+
