@@ -170,15 +170,15 @@ secrets:
   # MONGO_INITDB_ROOT_PASSWORD:
   #   file: /home/gnostic/Golem/db/mongo/secrets/MONGO_INITDB_ROOT_PASSWORD
   MONGOUSER:
-    file: /home/gnostic/Golem/be/jsSrv/secrets/MONGOUSER
+    file: ./jsSrv/secrets/MONGOUSER
   MONGOPASS:
-    file: /home/gnostic/Golem/be/jsSrv/secrets/MONGOPASS
+    file: ./jsSrv/secrets/MONGOPASS
   MAILCHIMP_API:
-    file: /home/gnostic/Golem/be/jsSrv/secrets/MAILCHIMP_API
+    file: ./jsSrv/secrets/MAILCHIMP_API
   MAILCHIMP_KEY:
-    file: /home/gnostic/Golem/be/jsSrv/secrets/MAILCHIMP_KEY
+    file: ./jsSrv/secrets/MAILCHIMP_KEY
   SECRET:
-    file: /home/gnostic/Golem/be/jsSrv/secrets/SECRET
+    file: ./jsSrv/secrets/SECRET
     # mlserv:
     #   image: tensorflow/serving:latest-gpu
     #   restart: unless-stopped

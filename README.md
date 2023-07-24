@@ -4,8 +4,6 @@ Inside an empty folder run the following commands from your shell
 
 ### `git pull https://github.com/ellierob/jsfe3.git`
 
-### `git pull https://github.com/ellierob/jsSrv.git`
-
 ### Without Docker
 
 ### `cd jsSrv && mv .env.B .env && yarn start`
