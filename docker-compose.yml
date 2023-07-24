@@ -1,39 +1,39 @@
 version: '3.1'
 
 services:
-  mongodb:
-    image: mongo:6
-    restart: on-failure
-    # network_mode: bridge
-    networks:
-      - back
-      # back:
-      #   ipv4_address: 192.168.4.2
-      # ports:
-      #   - 27017:27017
-    expose:
-      - 27017
-    volumes:
-      # - /home/gnostic/Golem/db/mongo/db:/data/db
-      - mongodata:/data/db
-      # - /home/gnostic/Golem/db/mongo/etc:/etc
-    env_file:
-      - /home/gnostic/Golem/db/mongo/.env
-    environment:
-      # MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
-      # MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
-      MONGO_INITDB_ROOT_USERNAME_FILE: /run/secrets/MONGO_INITDB_ROOT_USERNAME
-      MONGO_INITDB_ROOT_PASSWORD_FILE: /run/secrets/MONGO_INITDB_ROOT_PASSWORD
-    secrets:
-      - MONGO_INITDB_ROOT_USERNAME
-      - MONGO_INITDB_ROOT_PASSWORD
+  # mongodb:
+  #   image: mongo:6
+  #   restart: on-failure
+  #   # network_mode: bridge
+  #   networks:
+  #     - back
+  #     # back:
+  #     #   ipv4_address: 192.168.4.2
+  #     # ports:
+  #     #   - 27017:27017
+  #   expose:
+  #     - 27017
+  #   volumes:
+  #     # - /home/gnostic/Golem/db/mongo/db:/data/db
+  #     - mongodata:/data/db
+  #     # - /home/gnostic/Golem/db/mongo/etc:/etc
+  #   env_file:
+  #     - /home/gnostic/Golem/db/mongo/.env
+  #   environment:
+  #     # MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
+  #     # MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
+  #     MONGO_INITDB_ROOT_USERNAME_FILE: /run/secrets/MONGO_INITDB_ROOT_USERNAME
+  #     MONGO_INITDB_ROOT_PASSWORD_FILE: /run/secrets/MONGO_INITDB_ROOT_PASSWORD
+  #   secrets:
+  #     - MONGO_INITDB_ROOT_USERNAME
+  #     - MONGO_INITDB_ROOT_PASSWORD
 
   mongoxp:
     # image: arfenxprss
     image: node
     restart: unless-stopped
-    depends_on:
-      - mongodb
+    # depends_on:
+    #   - mongodb
     volumes:
       # - /home/gnostic/Golem/fe:/fe
       # - /home/gnostic/Golem/backend/mxp:/app
@@ -63,14 +63,14 @@ services:
       - MAILCHIMP_KEY
       - SECRET
     networks:
-      - back
+      # - back
       # back:
       #   ipv4_address: 192.168.4.3
       - front
       # front:
       #   ipv4_address: 192.168.3.3
-    links:
-      - mongodb:mongol
+      # links:
+      #   - mongodb:mongol
     ports:
       - 3004:3005
       # expose:
@@ -94,7 +94,7 @@ services:
     ports:
       - 3002:3002
     env_file:
-      - /home/gnostic/Golem/fe/jsfe3/.env
+      - ./jsfe3/.env
     environment:
       REACT_APP_BACKEND_URL: ${REACT_APP_BACKEND_URL}
       REACT_APP_CONTRACT_ADDRESS: ${REACT_APP_CONTRACT_ADDRESS}
@@ -118,12 +118,12 @@ services:
     tty: true
 
 volumes:
-  mongodata:
-    driver: local
-    driver_opts:
-      type: 'none'
-      o: 'bind'
-      device: '${DB}'
+  # mongodata:
+  #   driver: local
+  #   driver_opts:
+  #     type: 'none'
+  #     o: 'bind'
+  #     device: '${DB}'
   mongoxpapp:
     driver: local
     driver_opts:
@@ -156,7 +156,7 @@ networks:
     #   driver: default
     #   config:
     #     - subnet: "192.168.3.0/24"
-  back:
+    # back:
     # network_mode: bridge
     # ipam:
     #   driver: default
@@ -165,10 +165,10 @@ networks:
     # version: '3.1'
 
 secrets:
-  MONGO_INITDB_ROOT_USERNAME:
-    file: /home/gnostic/Golem/db/mongo/secrets/MONGO_INITDB_ROOT_USERNAME
-  MONGO_INITDB_ROOT_PASSWORD:
-    file: /home/gnostic/Golem/db/mongo/secrets/MONGO_INITDB_ROOT_PASSWORD
+  # MONGO_INITDB_ROOT_USERNAME:
+  #   file: /home/gnostic/Golem/db/mongo/secrets/MONGO_INITDB_ROOT_USERNAME
+  # MONGO_INITDB_ROOT_PASSWORD:
+  #   file: /home/gnostic/Golem/db/mongo/secrets/MONGO_INITDB_ROOT_PASSWORD
   MONGOUSER:
     file: /home/gnostic/Golem/be/jsSrv/secrets/MONGOUSER
   MONGOPASS:
