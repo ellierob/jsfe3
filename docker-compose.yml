@@ -41,7 +41,7 @@ services:
       - mongoxpapp:/app
     # network_mode: bridge
     env_file:
-      - /home/gnostic/Golem/be/jsSrv/.env
+      - /home/gnostic/Golem/be/jsSrv/BAK.env
     environment:
       MONGOUSER: ${MONGOUSER}
       MONGOPASS: ${MONGOPASS}
@@ -94,7 +94,7 @@ services:
     ports:
       - 3002:3002
     env_file:
-      - ./jsfe3/.env
+      - ./jsfe3/BAK.env
     environment:
       REACT_APP_BACKEND_URL: ${REACT_APP_BACKEND_URL}
       REACT_APP_CONTRACT_ADDRESS: ${REACT_APP_CONTRACT_ADDRESS}
