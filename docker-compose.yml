@@ -129,13 +129,13 @@ volumes:
     driver_opts:
       type: 'none'
       o: 'bind'
-      device: '${BE}'
+      device: './jsSrv'
   jsfeapp:
     driver: local
     driver_opts:
       type: 'none'
       o: 'bind'
-      device: '${FE}'
+      device: './jsfe3'
   # contracts:
   #   driver: local
   #   driver_opts:
