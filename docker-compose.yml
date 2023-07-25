@@ -41,7 +41,7 @@ services:
       - mongoxpapp:/app
     # network_mode: bridge
     env_file:
-      - /home/gnostic/Golem/be/jsSrv/BAK.env
+      - ./jsSrv/BAK.env
     environment:
       MONGOUSER: ${MONGOUSER}
       MONGOPASS: ${MONGOPASS}
