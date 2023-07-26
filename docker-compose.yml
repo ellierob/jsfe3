@@ -41,7 +41,7 @@ services:
       - mongoxpapp:/app
     # network_mode: bridge
     env_file:
-      - ./jsSrv/BAK.env
+      - ./jsSrv/.env
     environment:
       MONGOUSER: ${MONGOUSER}
       MONGOPASS: ${MONGOPASS}
@@ -94,7 +94,7 @@ services:
     ports:
       - 3002:3002
     env_file:
-      - ./jsfe3/BAK.env
+      - ./jsfe3/.env
     environment:
       REACT_APP_BACKEND_URL: ${REACT_APP_BACKEND_URL}
       REACT_APP_CONTRACT_ADDRESS: ${REACT_APP_CONTRACT_ADDRESS}
