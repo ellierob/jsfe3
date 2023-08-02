@@ -8,11 +8,11 @@ Inside an empty folder run the following commands from your shell
 
 ### `cd jsSrv && mv .env.B .env && yarn start`
 
-### `cd .. && cd jsfe3 && mv .env.B .env && yarn start`
+### `cd .. && cd jsfe3 && mv BAK.env .env && yarn start`
 
 ### Docker
 
-### `cd jsSrv && mv .env.B .env && docker compose up`
+### `cd jsSrv && mv BAK.env .env && docker compose up`
 
 Runs the app in the development mode.\
 Open [http://localhost:3002](http://localhost:3002) to view it in your browser.
@@ -27,4 +27,4 @@ See the new entry updated
 
 ### Blockchain
 
-Go to the 'FunMe' tab to connect to sample blockchain smart contract.
+Go to the 'FunMe' tab to press 'connect' to sample blockchain smart contract.
