@@ -1,5 +1,7 @@
 ## Instruction
 
+Explore the app at http://lb2-767c40a2a8ddaf63.elb.ap-south-1.amazonaws.com:3002
+
 Inside an empty folder run the following commands from your shell
 
 ### `git pull https://github.com/ellierob/jsfe3.git`
