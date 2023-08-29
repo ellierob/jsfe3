@@ -12,6 +12,8 @@ RUN npm install
 
 COPY . ./
 
+COPY ./BAK.env ./.env
+
 # RUN echo "FAST_REFRESH = false\n\
 #     REACT_APP_FAST_REFRESH = false\n\
 #     SKIP_PREFLIGHT_CHECK=true\n\

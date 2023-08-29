@@ -24,9 +24,11 @@ COPY . ./
 
 RUN export testVar=working
 
-RUN echo "\n\
-    testVar2=working\n"\
-    > .env
+COPY ./BAK.env ./.env
+
+# RUN echo "\n\
+#     testVar2=working\n"\
+#     > .env
 
 EXPOSE 3005
 
