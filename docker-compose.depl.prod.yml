@@ -1,5 +1,30 @@
 version: '3.1'
 
+secrets:
+  # MONGO_INITDB_ROOT_USERNAME:
+  #   file: /home/gnostic/Golem/db/mongo/secrets/MONGO_INITDB_ROOT_USERNAME
+  # MONGO_INITDB_ROOT_PASSWORD:
+  #   file: /home/gnostic/Golem/db/mongo/secrets/MONGO_INITDB_ROOT_PASSWORD
+  MONGOUSER:
+    file: ./secrets/jsSrv/decoded/MONGOUSER.txt
+    # file: ./secrets/jsSrv/MONGOUSER.txt
+  MONGOPASS:
+    file: ./secrets/jsSrv/decoded/MONGOPASS.txt
+    # file: ./secrets/jsSrv/MONGOPASS.txt
+  MAILCHIMP_API:
+    file: ./secrets/jsSrv/decoded/MAILCHIMP_API.txt
+    # file: ./secrets/jsSrv/MAILCHIMP_API.txt
+  MAILCHIMP_KEY:
+    file: ./secrets/jsSrv/decoded/MAILCHIMP_KEY.txt
+    # file: ./secrets/jsSrv/MAILCHIMP_KEY.txt
+  SECRET:
+    file: ./secrets/jsSrv/decoded/SECRET.txt
+    # file: ./secrets/jsSrv/SECRET.txt
+  ABI:
+    file: ./secrets/jsfe3/ABI.txt
+  CONTRACT_ADDRESS:
+    file: ./secrects/jsfe3/CONTRACT_ADDRESS.txt
+
 services:
   # mongodb:
   #   image: mongo:6
@@ -30,44 +55,38 @@ services:
 
   mongoxp:
     # image: arfenxprss
-    image: node
+    image: gnoso-be
     restart: unless-stopped
     # depends_on:
     #   - mongodb
-    volumes:
-      # - /home/gnostic/Golem/fe:/fe
-      # - /home/gnostic/Golem/backend/mxp:/app
-      # - /home/gnostic/Golem/be/jsSrv:/app
-      - mongoxpapp:/app
-      # network_mode: bridge
-    env_file:
-      - ./jsSrv/.env.local.dev
-      # - ./BAK2.env
-    environment:
-      # MONGOL: ${MONGOL}
-      # PORT: ${PORT}
-      # FRONTEND_URL: ${FRONTEND_URL}
-      # MONGOUSER: ${MONGOUSER}
-      # MONGOPASS: ${MONGOPASS}
-      # MAILCHIMP_API: ${MAILCHIMP_API}
-      # MAILCHIMP_KEY: ${MAILCHIMP_KEY}
-      # SECRET: ${SECRET}
-      MONGOUSER_FILE: /run/secrets/MONGOUSER
-      MONGOPASS_FILE: /run/secrets/MONGOPASS
-      MAILCHIMP_API_FILE: /run/secrets/MAILCHIMP_API
-      MAILCHIMP_KEY_FILE: /run/secrets/MAILCHIMP_KEY
-      SECRET_FILE: /run/secrets/SECRET
-      # MONGOUSER_FILE: ./jsSrv/secrets/decoded/MONGOUSER
-      # MONGOPASS_FILE: ./jsSrv/secrets/decoded/MONGOPASS
-      # MAILCHIMP_API_FILE: ./jsSrv/secrets/decoded/MAILCHIMP_API
-      # MAILCHIMP_KEY_FILE: ./jsSrv/secrets/decoded/MAILCHIMP_KEY
-      # SECRET_FILE: ./jsSrv/secrets/decoded/SECRET
     secrets:
       - MONGOUSER
       - MONGOPASS
       - MAILCHIMP_API
       - MAILCHIMP_KEY
       - SECRET
+      # env_file:
+      #   - ./jsSrv/.env.local.dev
+      # - ./BAK2.env
+    environment:
+      FRONTEND_URL: http://192.168.0.6:3002
+      # MONGOL: ${MONGOL}
+      # PORT: ${PORT}
+      # MONGOUSER: ${MONGOUSER}
+      # MONGOPASS: ${MONGOPASS}
+      # MAILCHIMP_API: ${MAILCHIMP_API}
+      # MAILCHIMP_KEY: ${MAILCHIMP_KEY}
+      # SECRET: ${SECRET}
+      # MONGOUSER_FILE: ./secrets/jsSrv/decoded/MONGOUSER.txt
+      # MONGOPASS_FILE: ./secrets/jsSrv/decoded/MONGOPASS.txt
+      # MAILCHIMP_API_FILE: ./secrets/jsSrv/decoded/MAILCHIMP_API.txt
+      # MAILCHIMP_KEY_FILE: ./secrets/jsSrv/decoded/MAILCHIMP_KEY.txt
+      # SECRET_FILE: ./secrets/jsSrv/decoded/SECRET.txt
+      MONGOUSER_FILE: /run/secrets/MONGOUSER
+      MONGOPASS_FILE: /run/secrets/MONGOPASS
+      MAILCHIMP_API_FILE: /run/secrets/MAILCHIMP_API
+      MAILCHIMP_KEY_FILE: /run/secrets/MAILCHIMP_KEY
+      SECRET_FILE: /run/secrets/SECRET
     networks:
       # - back
       # back:
@@ -90,7 +109,7 @@ services:
     # stdin_open: true
 
   frontend:
-    image: node
+    image: gnoso-fe
     restart: unless-stopped
     # network_mode: bridge
     networks:
@@ -99,19 +118,22 @@ services:
       #   ipv4_address: 192.168.3.2
     ports:
       - 3002:3002
-    env_file:
-      - ./jsfe3/.env.local.dev
-    # environment:
-    #   REACT_APP_BACKEND_URL: ${REACT_APP_BACKEND_URL}
-    #   REACT_APP_CONTRACT_ADDRESS: ${REACT_APP_CONTRACT_ADDRESS}
-    #   REACT_APP_ABI: ${REACT_APP_ABI}
+    # secrets:
+    #   - ABI
+    #   - CONTRACT_ADDRESS
+    environment:
+      REACT_APP_BACKEND_URL: http://192.168.0.6:3004/
+    #   REACT_APP_ABI_FILE: /run/secrets/ABI
+    #   REACT_APP_CONTRACT_ADDRESS_FILE: /run/secrets/CONTRACT_ADDRESS
+    # env_file:
+    #   - ./jsfe3/.env.local.dev
 
     depends_on:
       - mongoxp
-    volumes:
+      # volumes:
       # - /home/gnostic/Golem/fe/jsFe:/app
       # - /home/gnostic/Golem/fe/jsfe3:/app
-      - jsfeapp:/app
+      # - jsfeapp:/app
       # - contracts:/app/src/external/contracts
       # - /home/gnostic/Golem/be/blockchain/artifacts/contracts:/app/src/external/contracts
       # - deploy:/app/src/external/deployments
@@ -122,26 +144,25 @@ services:
     command: yarn start:dev
     stdin_open: true
     tty: true
-
-volumes:
+  # volumes:
   # mongodata:
   #   driver: local
   #   driver_opts:
   #     type: 'none'
   #     o: 'bind'
   #     device: '${DB}'
-  mongoxpapp:
-    driver: local
-    driver_opts:
-      type: 'none'
-      o: 'bind'
-      device: '/home/gnostic/Golem/fs/jsSrv'
-  jsfeapp:
-    driver: local
-    driver_opts:
-      type: 'none'
-      o: 'bind'
-      device: '/home/gnostic/Golem/fs/jsfe3'
+  # mongoxpapp:
+  #   driver: local
+  #   driver_opts:
+  #     type: 'none'
+  #     o: 'bind'
+  #     device: '/home/gnostic/Golem/fs/jsSrv'
+  # jsfeapp:
+  #   driver: local
+  #   driver_opts:
+  #     type: 'none'
+  #     o: 'bind'
+  #     device: '/home/gnostic/Golem/fs/jsfe3'
   # contracts:
   #   driver: local
   #   driver_opts:
@@ -170,21 +191,6 @@ networks:
     #     - subnet: "192.168.4.0/24"
     # version: '3.1'
 
-secrets:
-  # MONGO_INITDB_ROOT_USERNAME:
-  #   file: /home/gnostic/Golem/db/mongo/secrets/MONGO_INITDB_ROOT_USERNAME
-  # MONGO_INITDB_ROOT_PASSWORD:
-  #   file: /home/gnostic/Golem/db/mongo/secrets/MONGO_INITDB_ROOT_PASSWORD
-  MONGOUSER:
-    file: ./secrets/jsSrv/MONGOUSER.txt
-  MONGOPASS:
-    file: ./secrets/jsSrv/MONGOPASS.txt
-  MAILCHIMP_API:
-    file: ./secrets/jsSrv/MAILCHIMP_API.txt
-  MAILCHIMP_KEY:
-    file: ./secrets/jsSrv/MAILCHIMP_KEY.txt
-  SECRET:
-    file: ./secrets/jsSrv/SECRET.txt
     # mlserv:
     #   image: tensorflow/serving:latest-gpu
     #   restart: unless-stopped
