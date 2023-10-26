@@ -1,5 +1,5 @@
 // import fs from "fs-extra";
-// import { fs } from "react";
+import { fs } from "react";
 // import fs from "fs.realpath";
 // import { readFile } from 'fs/promises'
 
@@ -14,8 +14,11 @@
 //  assert {type: "json"}
 // ;
 
+
+
 export const abi =
-    import.meta.env.REACT_APP_ABI;
+    import.meta.env.REACT_APP_ABI
+// fs.readFileSync(import.meta.env.REACT_APP_ABI_FILE, 'utf8');
 // JSON.parse(
 // await readFile(
 //     new URL(
@@ -33,7 +36,8 @@ export const abi =
 // .abi;
 
 export const contractAddr =
-    import.meta.env.REACT_APP_CONTRACT_ADDRESS;
+    import.meta.env.REACT_APP_CONTRACT_ADDRESS
+// fs.readFileSync(import.meta.env.REACT_APP_CONTRACT_ADDRESS, 'utf8');
 // JSON.parse(
 // new URL(
 //     "../../external/deployments/localhost/FundMe.json",
@@ -48,3 +52,4 @@ export const contractAddr =
 // .address;
 
 console.log("abi:", abi, "\n\ncontractAddr:", contractAddr);
+
