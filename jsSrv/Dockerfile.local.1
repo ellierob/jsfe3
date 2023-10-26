@@ -1,0 +1,35 @@
+FROM node:16
+
+WORKDIR /app
+
+COPY package.json .
+
+RUN npm install
+
+COPY . ./
+
+# RUN echo "FAST_REFRESH = false\n\
+#     SKIP_PREFLIGHT_CHECK=true\n\
+#     SECRET=bigeffingsecret\n\
+#     MONGOUSER=root\n\
+#     MONGOPASS=example\n\
+#     MONGOCLUSTERUSER=gnostic\n\
+#     MONGOCLUSTERPASS=Civ4isawesome\n\
+#     FRONTEND_URL=http://$(curl ifconfig.me):3002\n\
+#     PORT=3005\n\
+#     BE=$(pwd)/jsSrv\n\
+#     FE=$(pwd)/jsfe3\n\
+#     DB=$(pwd)/db/mongo/db\n" \
+#     > .env
+
+RUN export testVar=working
+
+COPY ./BAK.env ./.env
+
+# RUN echo "\n\
+#     testVar2=working\n"\
+#     > .env
+
+EXPOSE 3005
+
+CMD ["yarn", "start"]
