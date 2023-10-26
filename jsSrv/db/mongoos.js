@@ -7,10 +7,12 @@ const modelConnect = (db = 'test') => {
     // `mongodb+srv://${process.env.MONGOCLUSTERUSER}:${process.env.MONGOCLUSTERPASS}@cluster0.ecgfwo7.mongodb.net/test?retryWrites=true&w=majority`
     // 'mongodb+srv://${process.env.MONGOCLUSTERUSER}:${process.env.MONGOCLUSTERPASS}@cluster0.ecgfwo7.mongodb.net/test?authSource=admin'
     `mongodb${process.env.MONGOL.startsWith('cluster') ? '+srv' : ''}://` +
-    process.env.MONGOUSER
+    // process.env.MONGOUSER
+    require('fs').readFileSync(process.env.MONGOUSER_FILE, 'utf8').trim()
     // 'root'
     + `:` +
-    process.env.MONGOPASS
+    // process.env.MONGOPASS
+    require('fs').readFileSync(process.env.MONGOPASS_FILE, 'utf8').trim()
     // 'example'
     + `@` +
     `${process.env.MONGOL}` +

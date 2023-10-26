@@ -12,7 +12,9 @@ RUN npm install
 
 COPY . ./
 
-COPY ./BAK.env ./.env
+COPY ./env.depl.prod ./.env
+
+RUN rm ./env.local.dev ./env.local.prod
 
 # RUN echo "FAST_REFRESH = false\n\
 #     REACT_APP_FAST_REFRESH = false\n\

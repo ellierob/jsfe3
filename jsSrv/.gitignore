@@ -15,7 +15,10 @@ node_modules_BAK
 # misc
 .DS_Store
 .env
-.env.local
+.env.depl.dev
+.env.depl.prod
+.env.local.dev
+.env.local.prod
 .env.development.local
 .env.test.local
 .env.production.local

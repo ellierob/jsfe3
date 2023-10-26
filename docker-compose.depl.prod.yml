@@ -1,0 +1,219 @@
+version: '3.1'
+
+services:
+  # mongodb:
+  #   image: mongo:6
+  #   restart: on-failure
+  #   # network_mode: bridge
+  #   networks:
+  #     - back
+  #     # back:
+  #     #   ipv4_address: 192.168.4.2
+  #     # ports:
+  #     #   - 27017:27017
+  #   expose:
+  #     - 27017
+  #   volumes:
+  #     # - /home/gnostic/Golem/db/mongo/db:/data/db
+  #     - mongodata:/data/db
+  #     # - /home/gnostic/Golem/db/mongo/etc:/etc
+  #   env_file:
+  #     - /home/gnostic/Golem/db/mongo/.env
+  #   environment:
+  #     # MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
+  #     # MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
+  #     MONGO_INITDB_ROOT_USERNAME_FILE: /run/secrets/MONGO_INITDB_ROOT_USERNAME
+  #     MONGO_INITDB_ROOT_PASSWORD_FILE: /run/secrets/MONGO_INITDB_ROOT_PASSWORD
+  #   secrets:
+  #     - MONGO_INITDB_ROOT_USERNAME
+  #     - MONGO_INITDB_ROOT_PASSWORD
+
+  mongoxp:
+    # image: arfenxprss
+    image: node
+    restart: unless-stopped
+    # depends_on:
+    #   - mongodb
+    volumes:
+      # - /home/gnostic/Golem/fe:/fe
+      # - /home/gnostic/Golem/backend/mxp:/app
+      # - /home/gnostic/Golem/be/jsSrv:/app
+      - mongoxpapp:/app
+      # network_mode: bridge
+    env_file:
+      - ./jsSrv/.env.local.dev
+      # - ./BAK2.env
+    environment:
+      # MONGOL: ${MONGOL}
+      # PORT: ${PORT}
+      # FRONTEND_URL: ${FRONTEND_URL}
+      # MONGOUSER: ${MONGOUSER}
+      # MONGOPASS: ${MONGOPASS}
+      # MAILCHIMP_API: ${MAILCHIMP_API}
+      # MAILCHIMP_KEY: ${MAILCHIMP_KEY}
+      # SECRET: ${SECRET}
+      MONGOUSER_FILE: /run/secrets/MONGOUSER
+      MONGOPASS_FILE: /run/secrets/MONGOPASS
+      MAILCHIMP_API_FILE: /run/secrets/MAILCHIMP_API
+      MAILCHIMP_KEY_FILE: /run/secrets/MAILCHIMP_KEY
+      SECRET_FILE: /run/secrets/SECRET
+      # MONGOUSER_FILE: ./jsSrv/secrets/decoded/MONGOUSER
+      # MONGOPASS_FILE: ./jsSrv/secrets/decoded/MONGOPASS
+      # MAILCHIMP_API_FILE: ./jsSrv/secrets/decoded/MAILCHIMP_API
+      # MAILCHIMP_KEY_FILE: ./jsSrv/secrets/decoded/MAILCHIMP_KEY
+      # SECRET_FILE: ./jsSrv/secrets/decoded/SECRET
+    secrets:
+      - MONGOUSER
+      - MONGOPASS
+      - MAILCHIMP_API
+      - MAILCHIMP_KEY
+      - SECRET
+    networks:
+      # - back
+      # back:
+      #   ipv4_address: 192.168.4.3
+      - front
+      # front:
+      #   ipv4_address: 192.168.3.3
+      # links:
+      #   - mongodb:mongol
+    ports:
+      - 3004:3005
+      # expose:
+      #   - 3005
+      # build:
+      # context: /home/gnostic/Golem/backend/mxp
+      # dockerfile: ./Dockerfile
+    working_dir: /app
+    command: yarn start:dev
+    # tty: true
+    # stdin_open: true
+
+  frontend:
+    image: node
+    restart: unless-stopped
+    # network_mode: bridge
+    networks:
+      - front
+      # front:
+      #   ipv4_address: 192.168.3.2
+    ports:
+      - 3002:3002
+    env_file:
+      - ./jsfe3/.env.local.dev
+    # environment:
+    #   REACT_APP_BACKEND_URL: ${REACT_APP_BACKEND_URL}
+    #   REACT_APP_CONTRACT_ADDRESS: ${REACT_APP_CONTRACT_ADDRESS}
+    #   REACT_APP_ABI: ${REACT_APP_ABI}
+
+    depends_on:
+      - mongoxp
+    volumes:
+      # - /home/gnostic/Golem/fe/jsFe:/app
+      # - /home/gnostic/Golem/fe/jsfe3:/app
+      - jsfeapp:/app
+      # - contracts:/app/src/external/contracts
+      # - /home/gnostic/Golem/be/blockchain/artifacts/contracts:/app/src/external/contracts
+      # - deploy:/app/src/external/deployments
+      # - /home/gnostic/Golem/be/blockchain/deployments:/app/src/external/deployments
+    links:
+      - mongoxp:mongoxp
+    working_dir: /app
+    command: yarn start:dev
+    stdin_open: true
+    tty: true
+
+volumes:
+  # mongodata:
+  #   driver: local
+  #   driver_opts:
+  #     type: 'none'
+  #     o: 'bind'
+  #     device: '${DB}'
+  mongoxpapp:
+    driver: local
+    driver_opts:
+      type: 'none'
+      o: 'bind'
+      device: '/home/gnostic/Golem/fs/jsSrv'
+  jsfeapp:
+    driver: local
+    driver_opts:
+      type: 'none'
+      o: 'bind'
+      device: '/home/gnostic/Golem/fs/jsfe3'
+  # contracts:
+  #   driver: local
+  #   driver_opts:
+  #     type: 'none'
+  #     o: 'bind'
+  #     device: '/home/gnostic/Golem/be/blockchain/artifacts/contracts'
+  # deploy:
+  #   driver: local
+  #   driver_opts:
+  #     type: 'none'
+  #     o: 'bind'
+  #     device: '/home/gnostic/Golem/be/blockchain/deployments'
+
+networks:
+  front:
+    # network_mode: bridge
+    # ipam:
+    #   driver: default
+    #   config:
+    #     - subnet: "192.168.3.0/24"
+    # back:
+    # network_mode: bridge
+    # ipam:
+    #   driver: default
+    #   config:
+    #     - subnet: "192.168.4.0/24"
+    # version: '3.1'
+
+secrets:
+  # MONGO_INITDB_ROOT_USERNAME:
+  #   file: /home/gnostic/Golem/db/mongo/secrets/MONGO_INITDB_ROOT_USERNAME
+  # MONGO_INITDB_ROOT_PASSWORD:
+  #   file: /home/gnostic/Golem/db/mongo/secrets/MONGO_INITDB_ROOT_PASSWORD
+  MONGOUSER:
+    file: ./secrets/jsSrv/MONGOUSER.txt
+  MONGOPASS:
+    file: ./secrets/jsSrv/MONGOPASS.txt
+  MAILCHIMP_API:
+    file: ./secrets/jsSrv/MAILCHIMP_API.txt
+  MAILCHIMP_KEY:
+    file: ./secrets/jsSrv/MAILCHIMP_KEY.txt
+  SECRET:
+    file: ./secrets/jsSrv/SECRET.txt
+    # mlserv:
+    #   image: tensorflow/serving:latest-gpu
+    #   restart: unless-stopped
+    #   volumes:
+    #     - /home/gnostic/Golem/be/aiSrv/models:/models
+    #   # network_mode: bridge
+    #   # networks:
+    #   #   - back
+    #   #   - front
+    #   # links:
+    #   #   - mongodb:mongol
+    #   ports:
+    #     - 8501:8501
+    #   # expose:
+    #   #   - 3005
+    #   environment:
+    #     - MODEL_NAME=dnn_model
+    #   # build:
+    #     # context: /home/gnostic/Golem/backend/mxp
+    #     # dockerfile: ./Dockerfile
+    #   # working_dir: /app
+    #   command:
+    #     - '--allow_version_labels_for_unavailable_models=true'
+    #     - '--model_config_file=/models/models.config'
+    #     - '--model_config_file_poll_wait_seconds=60'
+    #   deploy:
+    #     resources:
+    #       reservations:
+    #         devices:
+    #           - driver: nvidia
+    #             count: 1
+    #             capabilities: [gpu]

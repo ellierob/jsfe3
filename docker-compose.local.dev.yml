@@ -1,5 +1,26 @@
 version: '3.1'
 
+secrets:
+  # MONGO_INITDB_ROOT_USERNAME:
+  #   file: /home/gnostic/Golem/db/mongo/secrets/MONGO_INITDB_ROOT_USERNAME
+  # MONGO_INITDB_ROOT_PASSWORD:
+  #   file: /home/gnostic/Golem/db/mongo/secrets/MONGO_INITDB_ROOT_PASSWORD
+  MONGOUSER:
+    file: ./secrets/jsSrv/decoded/MONGOUSER.txt
+    # file: ./secrets/jsSrv/MONGOUSER.txt
+  MONGOPASS:
+    file: ./secrets/jsSrv/decoded/MONGOPASS.txt
+    # file: ./secrets/jsSrv/MONGOPASS.txt
+  MAILCHIMP_API:
+    file: ./secrets/jsSrv/decoded/MAILCHIMP_API.txt
+    # file: ./secrets/jsSrv/MAILCHIMP_API.txt
+  MAILCHIMP_KEY:
+    file: ./secrets/jsSrv/decoded/MAILCHIMP_KEY.txt
+    # file: ./secrets/jsSrv/MAILCHIMP_KEY.txt
+  SECRET:
+    file: ./secrets/jsSrv/decoded/SECRET.txt
+    # file: ./secrets/jsSrv/SECRET.txt
+
 services:
   # mongodb:
   #   image: mongo:6
@@ -39,29 +60,35 @@ services:
       # - /home/gnostic/Golem/backend/mxp:/app
       # - /home/gnostic/Golem/be/jsSrv:/app
       - mongoxpapp:/app
-    # network_mode: bridge
-    env_file:
-      - ./jsSrv/.env
-    environment:
-      MONGOUSER: ${MONGOUSER}
-      MONGOPASS: ${MONGOPASS}
-      SECRET: ${SECRET}
-      MAILCHIMP_API: ${MAILCHIMP_API}
-      MAILCHIMP_KEY: ${MAILCHIMP_KEY}
-      MONGOUSER_FILE: /run/secrets/MONGOUSER
-      MONGOPASS_FILE: /run/secrets/MONGOPASS
-      MAILCHIMP_API_FILE: /run/secrets/MAILCHIMP_API
-      MAILCHIMP_KEY_FILE: /run/secrets/MAILCHIMP_KEY
-      SECRET_FILE: /run/secrets/SECRET
-      MONGOL: ${MONGOL}
-      PORT: ${PORT}
-      FRONTEND_URL: ${FRONTEND_URL}
+      # network_mode: bridge
     secrets:
       - MONGOUSER
       - MONGOPASS
       - MAILCHIMP_API
       - MAILCHIMP_KEY
       - SECRET
+    env_file:
+      - ./jsSrv/.env.local.dev
+      # - ./BAK2.env
+    environment:
+      # MONGOL: ${MONGOL}
+      # PORT: ${PORT}
+      # FRONTEND_URL: ${FRONTEND_URL}
+      # MONGOUSER: ${MONGOUSER}
+      # MONGOPASS: ${MONGOPASS}
+      # MAILCHIMP_API: ${MAILCHIMP_API}
+      # MAILCHIMP_KEY: ${MAILCHIMP_KEY}
+      # SECRET: ${SECRET}
+      # MONGOUSER_FILE: ./secrets/jsSrv/decoded/MONGOUSER.txt
+      # MONGOPASS_FILE: ./secrets/jsSrv/decoded/MONGOPASS.txt
+      # MAILCHIMP_API_FILE: ./secrets/jsSrv/decoded/MAILCHIMP_API.txt
+      # MAILCHIMP_KEY_FILE: ./secrets/jsSrv/decoded/MAILCHIMP_KEY.txt
+      # SECRET_FILE: ./secrets/jsSrv/decoded/SECRET.txt
+      MONGOUSER_FILE: /run/secrets/MONGOUSER
+      MONGOPASS_FILE: /run/secrets/MONGOPASS
+      MAILCHIMP_API_FILE: /run/secrets/MAILCHIMP_API
+      MAILCHIMP_KEY_FILE: /run/secrets/MAILCHIMP_KEY
+      SECRET_FILE: /run/secrets/SECRET
     networks:
       # - back
       # back:
@@ -94,11 +121,11 @@ services:
     ports:
       - 3002:3002
     env_file:
-      - ./jsfe3/.env
-    environment:
-      REACT_APP_BACKEND_URL: ${REACT_APP_BACKEND_URL}
-      REACT_APP_CONTRACT_ADDRESS: ${REACT_APP_CONTRACT_ADDRESS}
-      REACT_APP_ABI: ${REACT_APP_ABI}
+      - ./jsfe3/.env.local.dev
+    # environment:
+    #   REACT_APP_BACKEND_URL: ${REACT_APP_BACKEND_URL}
+    #   REACT_APP_CONTRACT_ADDRESS: ${REACT_APP_CONTRACT_ADDRESS}
+    #   REACT_APP_ABI: ${REACT_APP_ABI}
 
     depends_on:
       - mongoxp
@@ -129,13 +156,13 @@ volumes:
     driver_opts:
       type: 'none'
       o: 'bind'
-      device: './jsSrv'
+      device: '/home/gnostic/Golem/fs/jsSrv'
   jsfeapp:
     driver: local
     driver_opts:
       type: 'none'
       o: 'bind'
-      device: './jsfe3'
+      device: '/home/gnostic/Golem/fs/jsfe3'
   # contracts:
   #   driver: local
   #   driver_opts:
@@ -164,21 +191,6 @@ networks:
     #     - subnet: "192.168.4.0/24"
     # version: '3.1'
 
-secrets:
-  # MONGO_INITDB_ROOT_USERNAME:
-  #   file: /home/gnostic/Golem/db/mongo/secrets/MONGO_INITDB_ROOT_USERNAME
-  # MONGO_INITDB_ROOT_PASSWORD:
-  #   file: /home/gnostic/Golem/db/mongo/secrets/MONGO_INITDB_ROOT_PASSWORD
-  MONGOUSER:
-    file: ./jsSrv/secrets/MONGOUSER
-  MONGOPASS:
-    file: ./jsSrv/secrets/MONGOPASS
-  MAILCHIMP_API:
-    file: ./jsSrv/secrets/MAILCHIMP_API
-  MAILCHIMP_KEY:
-    file: ./jsSrv/secrets/MAILCHIMP_KEY
-  SECRET:
-    file: ./jsSrv/secrets/SECRET
     # mlserv:
     #   image: tensorflow/serving:latest-gpu
     #   restart: unless-stopped
