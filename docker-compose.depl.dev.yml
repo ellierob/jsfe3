@@ -55,7 +55,7 @@ services:
 
   mongoxp:
     # image: arfenxprss
-    image: node
+    image: node:18-alpine
     restart: unless-stopped
     # depends_on:
     #   - mongodb
@@ -115,7 +115,7 @@ services:
     # stdin_open: true
 
   frontend:
-    image: node
+    image: node:18-alpine
     restart: unless-stopped
     # network_mode: bridge
     networks:
