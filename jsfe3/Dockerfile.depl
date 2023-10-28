@@ -1,5 +1,6 @@
 # good to specify version
-FROM node:16
+# FROM node:16
+FROM node:18-alpine
 
 # node container uses its '/app' directory, copied files sent here
 WORKDIR /app
@@ -12,9 +13,9 @@ RUN npm install
 
 COPY . ./
 
-COPY ./env.depl.prod ./.env
+COPY ./.env.depl.prod ./.env
 
-RUN rm ./env.local.dev ./env.local.prod
+RUN rm ./.env.local.dev ./.env.local.prod
 
 # RUN echo "FAST_REFRESH = false\n\
 #     REACT_APP_FAST_REFRESH = false\n\
