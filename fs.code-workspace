@@ -8,6 +8,9 @@
 		},
 		{
 			"path": "../db/mysql"
+		},
+		{
+			"path": "../db/JSON_db"
 		}
 	],
 	"settings": {}
