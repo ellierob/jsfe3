@@ -1,0 +1,14 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../db/mongo"
+		},
+		{
+			"path": "../db/mysql"
+		}
+	],
+	"settings": {}
+}
