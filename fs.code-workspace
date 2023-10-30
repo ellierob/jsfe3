@@ -20,6 +20,15 @@
 		},
 		{
 			"path": "../fe/test"
+		},
+		{
+			"path": "../vctl/aws"
+		},
+		{
+			"path": "../vctl/gcloud"
+		},
+		{
+			"path": "../vctl/kuber"
 		}
 	],
 	"settings": {}
