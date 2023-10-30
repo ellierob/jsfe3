@@ -17,6 +17,9 @@
 		},
 		{
 			"path": "../be/blockchain"
+		},
+		{
+			"path": "../fe/test"
 		}
 	],
 	"settings": {}
