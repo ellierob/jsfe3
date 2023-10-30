@@ -31,5 +31,7 @@
 			"path": "../vctl/kuber"
 		}
 	],
-	"settings": {}
+	"settings": {
+		"git.autoRepositoryDetection": "openEditors"
+	}
 }
