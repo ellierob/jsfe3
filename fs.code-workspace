@@ -11,6 +11,9 @@
 		},
 		{
 			"path": "../db/JSON_db"
+		},
+		{
+			"path": "../be/jasonSrv"
 		}
 	],
 	"settings": {}
