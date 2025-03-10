@@ -1,4 +1,4 @@
-Explore the app hosted at http://lb2-767c40a2a8ddaf63.elb.ap-south-1.amazonaws.com:3002
+
 
 ## Instruction
 
