@@ -3,3 +3,4 @@
 docker-compose.local.prod.yml
 docker-compose.local.dev.yml
 secrets
+jsfe3/src/mythcentral
